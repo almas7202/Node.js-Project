@@ -20,7 +20,7 @@ const upload = multer({
 })
 
 const routes = express.Router()
-routes.route('/newProduct').post(upload.single("product_images"),userAuth,userRole,createProduct)
+routes.route('/newProduct').post(upload.array("product_images",4),userAuth,userRole,createProduct)
 routes.route('/getProduct').get(userAuth,userRole,getProduct)
 routes.route('/updateProduct/:id').put(userAuth,userRole,updateProduct)
 

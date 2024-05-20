@@ -17,7 +17,7 @@ import Joi, { string } from "joi";
             maxLength:250
         },
         product_images:{
-            type:String,
+            type:[String],
             require:[true,'product Image is Required']
             // require:[true,'product Image is Required']
         },
