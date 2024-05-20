@@ -17,8 +17,8 @@ import Joi, { string } from "joi";
             maxLength:250
         },
         product_images:{
-            data:Buffer,
-            contentType:String,
+            type:String,
+            require:[true,'product Image is Required']
             // require:[true,'product Image is Required']
         },
         product_price:{
@@ -64,10 +64,7 @@ export default mongoose.model('product',proudctSchema)
 export const productValidation = Joi.object({
     product_name:Joi.string().min(5).required(),
     product_description:Joi.string().min(5).required(),
-    product_images: Joi.object({
-        data: Joi.binary().required(),
-        contentType: Joi.string().required()
-    }).required(),
+    // product_images: Joi.string().required(),
     product_price:Joi.number().required(),
     product_qty:Joi.number().required(),
     category:Joi.string().required()

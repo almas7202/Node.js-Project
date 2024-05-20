@@ -1,24 +1,31 @@
 import productModel ,{productValidation} from '../models/productSchema'
 import { Request,Response } from 'express'
 
+
 export const createProduct = async(req:Request,res:Response) =>{
-    const {error} = productValidation.validate(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
-    
-    const {product_name,product_description,product_images,product_price,product_qty,category} = req.body
-    const product = await productModel.create({
-        product_name,
-        product_description,
-        product_images,
-        product_price,
-        product_qty,
-        category
-    })
-    if(product){
-        res.send('Product Added Succesfully' + JSON.stringify(product))
-    }else{
-        res.status(400).send("Something Went Wrong")
-    }
+        console.log(req.file);
+        console.log(req.body);
+        
+        const {error} = productValidation.validate(req.body)
+        if(error) return res.status(400).send(error.details[0].message)
+        if (!req.file) {
+            return res.status(400).send("No file uploaded.");
+        }
+        // const {product_name,product_description,product_price,product_qty,category} = req.body
+        const product = await productModel.create({
+            product_name:req.body.product_name,
+            product_description:req.body.product_description,
+            product_images: req.file.path,
+            product_price:req.body.prodduct_images,
+            product_qty:req.body.product_qty,
+            category:req.body.category
+        })
+        if(product){
+            res.send('Product Added Succesfully' + JSON.stringify(product))
+        }else{
+            res.status(400).send("Something Went Wrong")
+        }
+
 }
 
 export const getProduct = async(req:Request,res:Response) =>{
