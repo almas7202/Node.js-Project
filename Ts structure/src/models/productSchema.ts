@@ -19,7 +19,6 @@ import Joi, { string } from "joi";
         product_images:{
             type:[String],
             require:[true,'product Image is Required']
-            // require:[true,'product Image is Required']
         },
         product_price:{
             type:Number,
