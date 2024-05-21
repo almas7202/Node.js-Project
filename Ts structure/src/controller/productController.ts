@@ -4,15 +4,13 @@ import { Request,Response } from 'express'
 
 export const createProduct = async(req:Request,res:Response) =>{
         console.log(req.files);
-        console.log(req.body);
-        
+        console.log(req.body);     
         const {error} = productValidation.validate(req.body)
         if(error) return res.status(400).send(error.details[0].message)
         if (!req.files) {
             return res.status(400).send("No file uploaded.");
         }
         const productImages = Array.isArray(req.files) ? req.files.map((file: Express.Multer.File) => file.path) : [];
-
         // const {product_name,product_description,product_price,product_qty,category} = req.body
         const product = await productModel.create({
             product_name:req.body.product_name,
@@ -27,7 +25,6 @@ export const createProduct = async(req:Request,res:Response) =>{
         }else{
             res.status(400).send("Something Went Wrong")
         }
-
 }
 
 export const getProduct = async(req:Request,res:Response) =>{
